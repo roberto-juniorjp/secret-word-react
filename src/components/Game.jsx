@@ -60,7 +60,6 @@ const Game = ({
           />
           <button
             className={styles.confirmButton}
-            onClick={verifyLetter}
             title="Arriscar?"
           >
             Arriscar

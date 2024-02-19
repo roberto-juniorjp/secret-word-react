@@ -64,7 +64,7 @@ function App() {
   // Captura o Input das Letras
   const verifyLetter = (letter) => {
     
-    const normalizedLetter = String(letter).toLowerCase();
+    const normalizedLetter = letter.toLowerCase();
 
     // Verificar Se a Letra Já Foi Utilizada
     if (
@@ -89,7 +89,7 @@ function App() {
     }
     
   };
-  
+
   const giveUpMatch = () => {
     setGameStage(stages[2].name);
   };
