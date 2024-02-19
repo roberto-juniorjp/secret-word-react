@@ -1,0 +1,43 @@
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: VT323;
+  font-style: italic;
+  background: linear-gradient(
+    135deg,
+    rgb(59, 187, 226) 0%,
+    rgb(33, 98, 118) 100%
+  );
+  color: white;
+}
+
+p {
+  font-size: 1.2em;
+}
+
+button {
+  background: #444;
+  font-size: 1.5em;
+  font-family: VT323;
+  font-style: italic;
+  color: #fff;
+  padding: 0 30px;
+  border: 2px solid #fff;
+  height: 50px;
+  text-transform: uppercase;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.4s;
+  
+}
+
+button:hover {
+  background: #000;
+  transform: translate(4px, 4px);
+  box-shadow: -4px -4px 0px #fff;
+}
