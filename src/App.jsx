@@ -50,7 +50,6 @@ function App() {
   const startGame = useCallback(() => {
     // Limpar as Palavras
     clearGameStages();
-    
 
     // Escolher Categoria e Palavra
     const { word, category } = pickWordAndCategory();
@@ -74,7 +73,7 @@ function App() {
     // Verificar Se a Letra Já Foi Utilizada
     if (
       guessedLetters.includes(normalizedLetter) ||
-      wrongLetters.includes(normalizedLetter)
+      wrongLetters.includes(normalizedLetter) || !letter.match(/[a-zA-Záàâãéèêíïóôõöúçñ]/i)
     ) {
       return;
     }
@@ -112,11 +111,13 @@ function App() {
   useEffect(() => {
     const uniqueLetters = [...new Set(letters)];
 
-    if (guessedLetters.length === uniqueLetters.length && gameStage !== stages[0].name) {
+    if (
+      guessedLetters.length === uniqueLetters.length &&
+      gameStage !== stages[0].name
+    ) {
       setScore((actualScore) => (actualScore += 100));
       startGame();
     }
-
   }, [guessedLetters, letters, startGame]);
 
   const giveUpMatch = () => {
