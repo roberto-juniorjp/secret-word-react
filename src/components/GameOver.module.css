@@ -1,3 +1,12 @@
+.gameOver p{
+    font-size: 1.5em;
+}
+
+.gameOver p span {
+    font-weight: bold;
+    color: rgb(253, 239, 80);
+}
+
 .gameOver button {
     background: #3e924b;
 }

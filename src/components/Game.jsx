@@ -24,16 +24,17 @@ const Game = ({
 
   return (
     <div className={styles.game}>
+      <h2>Adivinhe a Palavra:</h2>
       <p className={styles.points}>
         Pontuação: <span>{score}</span>
       </p>
-      <h2>Adivinhe a Palavra:</h2>
       <h3 className={styles.tip}>
         Dica: <span>{pickedCategory}</span>
       </h3>
       <p>
-        Você ainda tem <span>{guesses}</span> tentativa(s).
+        Você ainda tem <span className={styles.remainGuesses}>{guesses}</span> tentativa(s).
       </p>
+      
       <div className={styles.wordContainer}>
         {letters.map((letter, i) =>
           guessedLetters.includes(letter) ? (

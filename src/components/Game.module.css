@@ -1,5 +1,6 @@
 .points span {
   font-weight: bold;
+  color: rgb(253, 239, 80);
 }
 
 .game h2 {
@@ -20,6 +21,11 @@
 }
 
 .tip span {
+  color: rgb(253, 239, 80);
+}
+
+.remainGuesses {
+  font-weight:bold;
   color: rgb(253, 239, 80);
 }
 

@@ -18,6 +18,8 @@ const stages = [
   { id: 3, name: "end" },
 ];
 
+const guessAmount = 3;
+
 function App() {
   const [gameStage, setGameStage] = useState(stages[0].name);
   const words = useState(wordsList);
@@ -27,10 +29,10 @@ function App() {
   const [letters, setLetters] = useState([]);
   const [guessedLetters, setGuessedLetters] = useState([]);
   const [wrongLetters, setWrongLetters] = useState([]);
-  const [guesses, setGuesses] = useState(3);
+  const [guesses, setGuesses] = useState(guessAmount);
   const [score, setScore] = useState(0);
 
-  const pickWordAndCategory = () => {
+  const pickWordAndCategory = useCallback(() => {
     // Selecionar Categoria Aleatória
     const categories = Object.keys(words[0]);
     const category =
@@ -42,10 +44,14 @@ function App() {
 
     // Retorna a Categoria e a Palavra Escolhida Aleatoriamente
     return { word, category };
-  };
+  }, [words]);
 
   // Iniciar o Jogo
-  const startGame = () => {
+  const startGame = useCallback(() => {
+    // Limpar as Palavras
+    clearGameStages();
+    
+
     // Escolher Categoria e Palavra
     const { word, category } = pickWordAndCategory();
 
@@ -59,11 +65,10 @@ function App() {
     setLetters(wordLetters);
 
     setGameStage(stages[1].name);
-  };
+  }, [pickWordAndCategory]);
 
   // Captura o Input das Letras
   const verifyLetter = (letter) => {
-    
     const normalizedLetter = letter.toLowerCase();
 
     // Verificar Se a Letra Já Foi Utilizada
@@ -80,15 +85,39 @@ function App() {
         ...actualGuessedLetters,
         normalizedLetter,
       ]);
-      
     } else {
       setWrongLetters((actualWrongLetters) => [
         ...actualWrongLetters,
         normalizedLetter,
       ]);
+      setGuesses((actualGuesses) => actualGuesses - 1);
     }
-    
   };
+
+  // Encerrar a Partida
+  const clearGameStages = () => {
+    setGuessedLetters([]);
+    setWrongLetters([]);
+  };
+
+  // Verificar Se Acabaram as Tentativas
+  useEffect(() => {
+    if (guesses <= 0) {
+      clearGameStages();
+      setGameStage(stages[2].name);
+    }
+  }, [guesses]);
+
+  // Verificar Condição de Vitória
+  useEffect(() => {
+    const uniqueLetters = [...new Set(letters)];
+
+    if (guessedLetters.length === uniqueLetters.length && gameStage !== stages[0].name) {
+      setScore((actualScore) => (actualScore += 100));
+      startGame();
+    }
+
+  }, [guessedLetters, letters, startGame]);
 
   const giveUpMatch = () => {
     setGameStage(stages[2].name);
@@ -96,6 +125,8 @@ function App() {
 
   // Reinicia o Jogo
   const retry = () => {
+    setGuesses(guessAmount);
+    setScore(0);
     setGameStage(stages[0].name);
   };
 
